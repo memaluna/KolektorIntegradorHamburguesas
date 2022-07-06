@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import edu.curso.java.spring.proyectospring.bo.Producto;
 import edu.cursokolektor.proyectointegrador.bo.*;
 import edu.cursokolektor.proyectointegrador.mvc.form.HamburguesaForm;
 import edu.cursokolektor.proyectointegrador.mvc.form.IngredienteForm;
@@ -86,5 +87,12 @@ public class HamburguesaController {
 		}
 
 		return "redirect:/hamburguesas/ingrediente/nuevo";
+	}
+	
+	@GetMapping("/listaringredientes")
+	public String listar(Model model) {
+		List<Ingrediente> ingredientes = ingredienteService.recuperarIngredientes();
+		model.addAttribute("ingredientes", ingredientes);
+		return "/hamburguesas/listarIngredientes";
 	}
 }

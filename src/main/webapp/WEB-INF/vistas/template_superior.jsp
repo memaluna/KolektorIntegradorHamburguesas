@@ -64,10 +64,10 @@
 	    <div class="collapse navbar-collapse" id="navbarCollapse">
 	      <ul class="navbar-nav mr-auto">
 	        <li class="nav-item">
-	          <a class="nav-link" href="<c:url value="/productos"/>">Listado</a>
+	          <a class="nav-link" href="<c:url value="/hamburguesas/ingredientes"/>">Listado</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="<c:url value="/productos/nuevo"/>">Nuevo</a>
+	          <a class="nav-link" href="<c:url value="/hamburguesas/ingrediente/nuevo"/>">Nuevo</a>
 	        </li>
 	      </ul>
 	      <form class="form-inline mt-2 mt-md-0">

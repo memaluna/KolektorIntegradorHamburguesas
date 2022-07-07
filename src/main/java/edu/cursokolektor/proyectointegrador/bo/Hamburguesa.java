@@ -1,6 +1,7 @@
 package edu.cursokolektor.proyectointegrador.bo;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -19,14 +20,14 @@ public class Hamburguesa {
 	@JoinTable(name="hamburguesa_ingrediente", 
 	joinColumns=@JoinColumn(name="hamburguesa_id"),
 	inverseJoinColumns=@JoinColumn(name="ingrediente_id"))
-	private Set<Ingrediente> ingredientes;
+	private List<Ingrediente> ingredientes;
 
 	//Constructores
 	public Hamburguesa() {
 		super();
 	}
 
-	public Hamburguesa(Long id, String nombre, Double precio, Set<Ingrediente> ingredientes) {
+	public Hamburguesa(Long id, String nombre, Double precio, List<Ingrediente> ingredientes) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -59,11 +60,11 @@ public class Hamburguesa {
 		this.precio = precio;
 	}
 
-	public Set<Ingrediente> getIngredientes() {
+	public List<Ingrediente> getIngredientes() {
 		return ingredientes;
 	}
 
-	public void setIngredientes(Set<Ingrediente> ingredientes) {
+	public void setIngredientes(List<Ingrediente> ingredientes) {
 		this.ingredientes = ingredientes;
 	}
 

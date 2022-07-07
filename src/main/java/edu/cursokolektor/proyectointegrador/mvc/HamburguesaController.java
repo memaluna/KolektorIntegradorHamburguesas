@@ -1,9 +1,7 @@
 package edu.cursokolektor.proyectointegrador.mvc;
 
 import java.util.List;
-
 import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import edu.curso.java.spring.proyectospring.bo.Producto;
 import edu.cursokolektor.proyectointegrador.bo.*;
 import edu.cursokolektor.proyectointegrador.mvc.form.HamburguesaForm;
 import edu.cursokolektor.proyectointegrador.mvc.form.IngredienteForm;
-import edu.cursokolektor.proyectointegrador.repository.IngredienteRepository;
 import edu.cursokolektor.proyectointegrador.service.HamburguesaService;
 import edu.cursokolektor.proyectointegrador.service.IngredienteService;
 
@@ -57,14 +53,16 @@ public class HamburguesaController {
 	@PostMapping("/ingredientes/guardar")
 	public String guardar(@Valid @ModelAttribute(name = "ingredienteForm") IngredienteForm ingredienteForm, BindingResult bindingResult, Model model) {
 
-		/*
-		 * if(bindingResult.hasErrors()) { this.cargarCategorias(model);
-		 * model.addAttribute("productoForm", productoForm); return "/productos/form"; }
-		 */
+		
+		log.info("Ejecutando el guardar: " + bindingResult.hasErrors());
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("ingredienteForm", ingredienteForm);
+			return "/hamburguesas/formIngrediente";
+		}
 		
 		Ingrediente ingrediente = null;
 		Long idIngrediente = ingredienteForm.getId();
-		
+		System.out.println("estado id " + idIngrediente);
 		if(idIngrediente == null) {
 			ingrediente = new Ingrediente();
 		} else {
@@ -78,21 +76,47 @@ public class HamburguesaController {
 			try {
 				ingredienteService.guardarNuevoIngrediente(ingrediente);
 			} catch (Exception e) {
-				log.error("Error al gurdar un nuevo producto", e.getMessage());
+				log.error("Error al gurdar un nuevo ingrediente", e.getMessage());
 				return "redirect:/error";
 			}
 
 		} else {
-			//productoService.actualizarProducto(producto);
+			ingredienteService.actualizarIngrediente(ingrediente);
 		}
 
-		return "redirect:/hamburguesas/ingrediente/nuevo";
+		return "redirect:/hamburguesas/ingredientes";
 	}
 	
-	@GetMapping("/listaringredientes")
+	@GetMapping("/ingredientes")
 	public String listar(Model model) {
 		List<Ingrediente> ingredientes = ingredienteService.recuperarIngredientes();
 		model.addAttribute("ingredientes", ingredientes);
 		return "/hamburguesas/listarIngredientes";
+	}
+	
+	@GetMapping("/ingredientes/{id}/editar")
+	public String editar(Model model, @PathVariable Long id) {
+		Ingrediente ingrediente = ingredienteService.buscarIngredientePorId(id);
+		System.out.println(ingrediente);
+		IngredienteForm ingredienteForm = new IngredienteForm();
+		ingredienteForm.setId(ingrediente.getId());
+		ingredienteForm.setNombre(ingrediente.getNombre());
+		ingredienteForm.setStock(ingrediente.getStock());
+
+		model.addAttribute("ingredienteForm", ingredienteForm);
+		return "/hamburguesas/formIngrediente";
+	}
+	
+	@GetMapping("ingrediente/{id}/borrar")
+	public String borrar(Model model, @PathVariable Long id) {
+		ingredienteService.borrarIngredientePorId(id);
+		return "redirect:/hamburguesas/ingredientes";
+	}
+	
+	@GetMapping("/ingrediente/{id}")
+	public String ver(Model model, @PathVariable Long id) {
+		Ingrediente ingrediente = ingredienteService.buscarIngredientePorId(id);
+		model.addAttribute("ingrediente", ingrediente);
+		return "/hamburguesas/veringrediente";
 	}
 }

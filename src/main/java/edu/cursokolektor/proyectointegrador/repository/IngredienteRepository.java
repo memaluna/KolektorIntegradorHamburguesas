@@ -1,9 +1,14 @@
 package edu.cursokolektor.proyectointegrador.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import edu.cursokolektor.proyectointegrador.bo.Ingrediente;
 
+@Repository
 public interface IngredienteRepository extends JpaRepository<Ingrediente, Long>{
-
+	
+	List<Ingrediente> findAllByOrderById();
+	
 }

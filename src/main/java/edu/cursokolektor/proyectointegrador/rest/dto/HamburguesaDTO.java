@@ -1,5 +1,6 @@
 package edu.cursokolektor.proyectointegrador.rest.dto;
 
+import java.util.List;
 import java.util.Set;
 
 import edu.cursokolektor.proyectointegrador.bo.Hamburguesa;
@@ -10,7 +11,7 @@ public class HamburguesaDTO {
 	private Long id;
 	private String nombre;
 	private Double precio;
-	private Set<Ingrediente> ingredientes;
+	private List<Ingrediente> ingredientes;
 	
 	public HamburguesaDTO(Hamburguesa hamburguesa) {
 		this.id = hamburguesa.getId();
@@ -45,11 +46,11 @@ public class HamburguesaDTO {
 		this.precio = precio;
 	}
 
-	public Set<Ingrediente> getIngredientes() {
+	public List<Ingrediente> getIngredientes() {
 		return ingredientes;
 	}
 
-	public void setIngredientes(Set<Ingrediente> ingredientes) {
+	public void setIngredientes(List<Ingrediente> ingredientes) {
 		this.ingredientes = ingredientes;
 	}
 	

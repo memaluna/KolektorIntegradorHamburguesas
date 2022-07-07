@@ -7,15 +7,19 @@
 	<script type="text/javascript">
  		$(document).ready(function() {
 			//$('#select-ingredientes').select2();
-			//$('#form-producto').validate();
+			$('#form-ingrediente').validate();
 		}); 
 	</script>
 
 	<h1>Cargar nuevo ingrediente</h1>
 	<form:form method="post" action="/hamburguesas/ingredientes/guardar" modelAttribute="ingredienteForm" id="form-ingrediente">
 		<div class="form-group">
+			<label>Id</label>
+			<form:input path="id" readonly="true" cssClass="form-control"/>
+		</div>
+		<div class="form-group">
 			<label>Nombre</label>
-			<form:input path="nombre" cssClass="form-control required number" />
+			<form:input path="nombre" cssClass="form-control required" />
 			<form:errors path="nombre" cssClass="error"/>
 		</div>
 		<div class="form-group">

@@ -13,7 +13,7 @@
 		$('.btn-borrar').on('click', function(event) {
 			event.preventDefault();
 			var hrefOriginal = $(this).attr('href');
-			bootbox.confirm("Borramos el producto?", function(result){ 
+			bootbox.confirm("Borramos el ingrediente?", function(result){ 
 				if(result) {
 					window.location = hrefOriginal;
 				}
@@ -44,9 +44,9 @@
 				</c:if>
 			</td>
 			<td>
-				<a href="/productos/${p.id}" class="btn btn-primary">Ver</a>&nbsp;
-				<a href="/productos/${p.id}/editar" class="btn btn-success">Editar</a>&nbsp;
-				<a href="/productos/${p.id}/borrar" class="btn btn-danger btn-borrar">Borrar</a></td>
+				<a href="/hamburguesas/ingrediente/${p.id}" class="btn btn-primary">Ver</a>&nbsp;
+				<a href="/hamburguesas/ingredientes/${p.id}/editar" class="btn btn-success">Editar</a>&nbsp;
+				<a href="/hamburguesas/ingrediente/${p.id}/borrar" class="btn btn-danger btn-borrar">Borrar</a></td>
 		</tr>
 	</c:forEach>
 </table>

@@ -21,9 +21,9 @@ import edu.cursokolektor.proyectointegrador.service.IngredienteService;
 
 @Controller
 @RequestMapping("/hamburguesas")
-public class HamburguesaController {
+public class HamburguesasController {
 	
-	private static  Logger log = LoggerFactory.getLogger(HamburguesaController.class);
+	private static  Logger log = LoggerFactory.getLogger(HamburguesasController.class);
 	
 	@Autowired
 	private HamburguesaService hamburguesaService;
@@ -31,13 +31,13 @@ public class HamburguesaController {
 	@Autowired
 	private IngredienteService ingredienteService;
 	
-	@GetMapping("/nuevo")
+	@GetMapping("/hamburguesa/nuevo")
 	public String nuevo(Model model) {
 		this.cargarIngredientes(model);
 		model.addAttribute("hamburguesaForm", new HamburguesaForm());
-		return "/hamburguesas/form";
+		return "/hamburguesas/hamburguesaform";
 	}
-	
+	///Cargar ingredientes
 	private void cargarIngredientes(Model model) {
 		List<Ingrediente> ingredientes = ingredienteService.recuperarIngredientes();
 		model.addAttribute("ingredientes", ingredientes);
@@ -88,7 +88,7 @@ public class HamburguesaController {
 	}
 	
 	@GetMapping("/ingredientes")
-	public String listar(Model model) {
+	public String listarIngrediente(Model model) {
 		List<Ingrediente> ingredientes = ingredienteService.recuperarIngredientes();
 		model.addAttribute("ingredientes", ingredientes);
 		return "/hamburguesas/listarIngredientes";
@@ -119,4 +119,51 @@ public class HamburguesaController {
 		model.addAttribute("ingrediente", ingrediente);
 		return "/hamburguesas/veringrediente";
 	}
+	
+	@PostMapping("/hamburguesa/guardar")
+	public String guardar(@Valid @ModelAttribute(name = "hamburguesaForm") HamburguesaForm hamburguesaForm, BindingResult bindingResult, Model model) {
+
+		
+		log.info("Ejecutando el guardar: " + bindingResult.hasErrors());
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("hamburguesaForm", hamburguesaForm);
+			return "/hamburguesas/hamburguesaform";
+		}
+		
+		Hamburguesa hamburguesa = null;
+		Long idHamburguesa = hamburguesaForm.getId();
+		System.out.println("estado id " + idHamburguesa);
+		if(idHamburguesa == null) {
+			hamburguesa = new Hamburguesa();
+		} else {
+			hamburguesa = hamburguesaService.buscarHamburguesaPorId(idHamburguesa);
+		}
+		
+		hamburguesa.setNombre(hamburguesaForm.getNombre());
+		hamburguesa.setPrecio(hamburguesaForm.getPrecio());
+		hamburguesa.setIngredientes(hamburguesaForm.getIngredientes());
+		
+		
+		if(idHamburguesa == null) {
+			try {
+				hamburguesaService.guardarNuevaHamburguesa(hamburguesa);
+			} catch (Exception e) {
+				log.error("Error al gurdar un nuevo ingrediente", e.getMessage());
+				return "redirect:/error";
+			}
+
+		} else {
+			hamburguesaService.actualizarHamburguesa(hamburguesa);
+		}
+
+		return "redirect:/hamburguesas";
+	}
+	
+	@GetMapping()
+	public String listarHamburguesas(Model model) {
+		List<Hamburguesa> hamburguesas= hamburguesaService.recuperarHamburguesas();
+		model.addAttribute("hamburguesas", hamburguesas);
+		return "/hamburguesas/listarHamburguesas";
+	}
+	
 }

@@ -4,16 +4,16 @@
 
 <jsp:include page="/WEB-INF/vistas/template_superior.jsp"></jsp:include>
 
-<%-- 	<script type="text/javascript">
-/* 		$(document).ready(function() {
-			$('#select-categorias').select2();
-			$('#form-producto').validate();
-		}); */
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$('#select-ingredientes').select2();
+		//$('#form-producto').validate();
+	});
 	</script>
 
 	<h1>Formulario de Hamburguesas</h1>
 
-	<form:form method="post" action="/productos/guardar" modelAttribute="productoForm" id="form-producto">
+	<form:form method="post" action="/hamburguesas/hamburguesa/guardar" modelAttribute="hamburguesaForm" id="form-hamburguesa">
 
 		<div class="form-group">
 			<label>Id</label>
@@ -34,18 +34,12 @@
 		</div>
 
 		<div class="form-group">
-			<label>Stock actual</label>
-			<form:input path="stockActual" cssClass="form-control required number" />
-			<form:errors path="stockActual" cssClass="error"/>
-		</div>
-
-		<div class="form-group">
-			<label>Categoria</label>
-			<form:select path="categoriaId" items="${categorias}" itemLabel="nombre" itemValue="id" cssClass="form-control" id="select-categorias" />
+			<label>Ingredientes</label>
+			<form:select path="ingredientes" items="${ingredientes}" itemLabel="nombre" itemValue="id" cssClass="form-control" id="select-ingredientes" />
 		</div>
 
 
 		<button type="submit" class="btn btn-primary">Enviar datos</button>
-	</form:form> --%>
+	</form:form>
 
 <jsp:include page="/WEB-INF/vistas/template_inferior.jsp"></jsp:include>

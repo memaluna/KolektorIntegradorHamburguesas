@@ -6,7 +6,7 @@ import edu.cursokolektor.proyectointegrador.bo.Ingrediente;
 
 public interface HamburguesaService {
 
-	Long guardarNuevaHamburguesa(Hamburguesa hamburguesa, Long idCategoria); //aca van a ir exepciones
+	Long guardarNuevaHamburguesa(Hamburguesa hamburguesa); //aca van a ir exepciones
 
 	Hamburguesa buscarHamburguesaPorId(Long id);
 

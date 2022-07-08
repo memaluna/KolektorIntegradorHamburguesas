@@ -1,5 +1,6 @@
 package edu.cursokolektor.proyectointegrador.mvc.form;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
@@ -18,7 +19,7 @@ public class HamburguesaForm {
 	@Positive
 	private Double precio;
 	
-	private Set<Ingrediente> ingredientes;
+	private List<Ingrediente> ingredientes;
 
 	public Long getId() {
 		return id;
@@ -44,11 +45,11 @@ public class HamburguesaForm {
 		this.precio = precio;
 	}
 
-	public Set<Ingrediente> getIngredientes() {
+	public List<Ingrediente> getIngredientes() {
 		return ingredientes;
 	}
 
-	public void setIngredientes(Set<Ingrediente> ingredientes) {
+	public void setIngredientes(List<Ingrediente> ingredientes) {
 		this.ingredientes = ingredientes;
 	}
 	

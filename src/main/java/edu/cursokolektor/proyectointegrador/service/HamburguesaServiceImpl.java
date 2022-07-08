@@ -20,9 +20,9 @@ public class HamburguesaServiceImpl implements HamburguesaService{
 	private IngredienteRepository ingredienteRepository;
 	
 	@Override
-	public Long guardarNuevaHamburguesa(Hamburguesa hamburguesa, Long idCategoria) {
-		// TODO Auto-generated method stub
-		return null;
+	public Long guardarNuevaHamburguesa(Hamburguesa hamburguesa) {
+		hamburguesaRepository.save(hamburguesa);
+		return hamburguesa.getId();
 	}
 
 	@Override
@@ -33,8 +33,7 @@ public class HamburguesaServiceImpl implements HamburguesaService{
 
 	@Override
 	public List<Hamburguesa> recuperarHamburguesas() {
-		// TODO Auto-generated method stub
-		return null;
+		return hamburguesaRepository.findAllByOrderById();
 	}
 
 	@Override
@@ -56,9 +55,8 @@ public class HamburguesaServiceImpl implements HamburguesaService{
 	}
 
 	@Override
-	public void actualizarHamburguesa(Hamburguesa Hamburguesa) {
-		// TODO Auto-generated method stub
-		
+	public void actualizarHamburguesa(Hamburguesa hamburguesa) {
+		hamburguesaRepository.save(hamburguesa);
 	}
 
 }

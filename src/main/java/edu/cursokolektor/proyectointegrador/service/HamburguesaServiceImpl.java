@@ -1,6 +1,7 @@
 package edu.cursokolektor.proyectointegrador.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +28,8 @@ public class HamburguesaServiceImpl implements HamburguesaService{
 
 	@Override
 	public Hamburguesa buscarHamburguesaPorId(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Hamburguesa> hamburguesaOptional = hamburguesaRepository.findById(id);
+		return hamburguesaOptional.get();
 	}
 
 	@Override
@@ -50,8 +51,7 @@ public class HamburguesaServiceImpl implements HamburguesaService{
 
 	@Override
 	public void borrarHamburguesaPorId(Long id) {
-		// TODO Auto-generated method stub
-		
+		hamburguesaRepository.deleteById(id);		
 	}
 
 	@Override

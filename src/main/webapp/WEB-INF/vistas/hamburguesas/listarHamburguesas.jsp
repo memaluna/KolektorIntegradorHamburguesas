@@ -44,13 +44,13 @@
 				</c:if>
 			</td>
 			<td>
-			<c:forEach items="${p.ingredientes}" var="p">
-				<span class="badge bg-warning">${p.nombre}</span>
+			<c:forEach items="${p.ingredientes}" var="c">
+				<span class="badge bg-warning">${c.nombre}</span>
 			</c:forEach>
 			<td>
-				<a href="/hamburguesas/ingrediente/${p.id}" class="btn btn-primary">Ver</a>&nbsp;
-				<a href="/hamburguesas/ingredientes/${p.id}/editar" class="btn btn-success">Editar</a>&nbsp;
-				<a href="/hamburguesas/ingrediente/${p.id}/borrar" class="btn btn-danger btn-borrar">Borrar</a></td>
+				<a href="/hamburguesas/hamburguesa/${p.id}" class="btn btn-primary">Ver</a>&nbsp;
+				<a href="/hamburguesas/hamburguesa/${p.id}/editar" class="btn btn-success">Editar</a>&nbsp;
+				<a href="/hamburguesas/hamburguesa/${p.id}/borrar" class="btn btn-danger btn-borrar">Borrar</a></td>
 		</tr>
 	</c:forEach>
 </table>

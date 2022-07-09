@@ -20,7 +20,6 @@
 			<form:input path="id" readonly="true" cssClass="form-control"/>
 		</div>
 
-
 		<div class="form-group">
 			<label>Nombre</label>
 			<form:input path="nombre" cssClass="form-control required" />

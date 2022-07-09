@@ -31,13 +31,8 @@ public class HamburguesasController {
 	@Autowired
 	private IngredienteService ingredienteService;
 	
-	@GetMapping("/hamburguesa/nuevo")
-	public String nuevo(Model model) {
-		this.cargarIngredientes(model);
-		model.addAttribute("hamburguesaForm", new HamburguesaForm());
-		return "/hamburguesas/hamburguesaform";
-	}
-	///Cargar ingredientes
+	//ingredientes--------------------------------->
+	
 	private void cargarIngredientes(Model model) {
 		List<Ingrediente> ingredientes = ingredienteService.recuperarIngredientes();
 		model.addAttribute("ingredientes", ingredientes);
@@ -120,6 +115,15 @@ public class HamburguesasController {
 		return "/hamburguesas/veringrediente";
 	}
 	
+	//hamburguesa -------------------------->
+	
+	@GetMapping("/hamburguesa/nuevo")
+	public String nuevo(Model model) {
+		this.cargarIngredientes(model);
+		model.addAttribute("hamburguesaForm", new HamburguesaForm());
+		return "/hamburguesas/hamburguesaform";
+	}
+	
 	@PostMapping("/hamburguesa/guardar")
 	public String guardar(@Valid @ModelAttribute(name = "hamburguesaForm") HamburguesaForm hamburguesaForm, BindingResult bindingResult, Model model) {
 
@@ -166,4 +170,32 @@ public class HamburguesasController {
 		return "/hamburguesas/listarHamburguesas";
 	}
 	
+	@GetMapping("hamburguesa/{id}/borrar")
+	public String borrarHamburguesa(Model model, @PathVariable Long id) {
+		hamburguesaService.borrarHamburguesaPorId(id);
+		return "redirect:/hamburguesas";
+	}
+	
+	@GetMapping("/hamburguesa/{id}/editar")
+	public String editarHamburguesa(Model model, @PathVariable Long id) {
+		Hamburguesa hamburguesa = hamburguesaService.buscarHamburguesaPorId(id);
+		System.out.println(hamburguesa);
+		HamburguesaForm hamburguesaForm = new HamburguesaForm();
+		hamburguesaForm.setId(hamburguesa.getId());
+		hamburguesaForm.setNombre(hamburguesa.getNombre());
+		hamburguesaForm.setPrecio(hamburguesa.getPrecio());
+		hamburguesaForm.setIngredientes(hamburguesa.getIngredientes());
+		
+		this.cargarIngredientes(model);
+		
+		model.addAttribute("hamburguesaForm", hamburguesaForm);
+		return "/hamburguesas/hamburguesaform";
+	}
+	
+	@GetMapping("/hamburguesa/{id}")
+	public String verHamburguesa(Model model, @PathVariable Long id) {
+		Hamburguesa hamburguesa = hamburguesaService.buscarHamburguesaPorId(id);
+		model.addAttribute("hamburguesa", hamburguesa);
+		return "/hamburguesas/verhamburguesa";
+	}
 }

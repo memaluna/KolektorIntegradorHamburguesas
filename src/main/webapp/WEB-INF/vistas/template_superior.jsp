@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Ejemplo spring</title>
+	<title>Hamburguesas</title>
 	
 	<script type="text/javascript" src="<c:url value="/js/jquery-3.6.0.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/js/bootstrap.js"/>"></script>
@@ -26,7 +26,7 @@
 				placeholder: 'Buscador ajax',
 				minimumInputLength: 2,
 				ajax: {
-				    url: '/api/productos/buscar',
+				    url: '/api/hamburguesas',
 				    data: function (params) {
 				        var query = {
 				          nombre: params.term
@@ -36,8 +36,8 @@
 				    processResults: function (data) {
 				        var nuevosDatos = [];
 				    	
-				        for(var producto of data) {
-				        	nuevosDatos.push({ id: producto.id, text: producto.nombre + ' ' + producto.precio });
+				        for(var hamburguesa of data) {
+				        	nuevosDatos.push({ id: hamburguesa.id, text: hamburguesa.nombre + ' ' + hamburguesa.precio });
 				        }
 				        
 				    	return {
@@ -47,7 +47,7 @@
 				    dataType: 'json'
 				}
 			}).on('select2:select', function(event) {
-				window.location = '/productos/' + event.params.data.id;
+				window.location = '/hamburguesas/hamburguesa/' + event.params.data.id;
 			});
 		});
 	</script>
@@ -57,17 +57,23 @@
 	<header>
 	  <!-- Fixed navbar -->
 	  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-	    <a class="navbar-brand" href="<c:url value="/productos"/>">Ejemplo Spring</a>
+	    <a class="navbar-brand" href="<c:url value="/productos"/>">Hamburguesas</a>
 	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 	      <span class="navbar-toggler-icon"></span>
 	    </button>
 	    <div class="collapse navbar-collapse" id="navbarCollapse">
 	      <ul class="navbar-nav mr-auto">
-	        <li class="nav-item">
-	          <a class="nav-link" href="<c:url value="/hamburguesas/ingredientes"/>">Listado</a>
+	      	<li class="nav-item">
+	          <a class="nav-link" href="<c:url value="/hamburguesas"/>">Listado de hamburguesas</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="<c:url value="/hamburguesas/ingrediente/nuevo"/>">Nuevo</a>
+	          <a class="nav-link" href="<c:url value="/hamburguesas/hamburguesa/nuevo"/>">Nueva hamburguesa</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="<c:url value="/hamburguesas/ingredientes"/>">Listado de ingredientes</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="<c:url value="/hamburguesas/ingrediente/nuevo"/>">Nuevo ingrediente</a>
 	        </li>
 	      </ul>
 	      <form class="form-inline mt-2 mt-md-0">

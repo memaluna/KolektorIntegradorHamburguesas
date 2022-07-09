@@ -28,6 +28,7 @@
 			<th>Id</th>
 			<th>Nombre</th>
 			<th>Precio</th>
+			<th>Ingredientes</th>
 			<th></th>
 		</tr>
 	</thead>

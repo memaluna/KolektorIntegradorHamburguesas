@@ -23,7 +23,7 @@
 		$(document).ready(function() {
 			$('#select-autocomplete-productos').select2({ 
 				width: '300px',
-				placeholder: 'Buscador ajax',
+				placeholder: 'Buscar hamburguesa',
 				minimumInputLength: 2,
 				ajax: {
 				    url: '/api/hamburguesas',
@@ -57,7 +57,7 @@
 	<header>
 	  <!-- Fixed navbar -->
 	  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-	    <a class="navbar-brand" href="<c:url value="/productos"/>">Hamburguesas</a>
+	    <a class="navbar-brand" href="<c:url value="/hamburguesas"/>">Hamburguesas</a>
 	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 	      <span class="navbar-toggler-icon"></span>
 	    </button>

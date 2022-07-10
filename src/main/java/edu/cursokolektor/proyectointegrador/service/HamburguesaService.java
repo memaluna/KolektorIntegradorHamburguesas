@@ -2,7 +2,6 @@ package edu.cursokolektor.proyectointegrador.service;
 
 import java.util.List;
 import edu.cursokolektor.proyectointegrador.bo.Hamburguesa;
-import edu.cursokolektor.proyectointegrador.bo.Ingrediente;
 
 public interface HamburguesaService {
 

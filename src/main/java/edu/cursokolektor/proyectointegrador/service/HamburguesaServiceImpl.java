@@ -2,23 +2,16 @@ package edu.cursokolektor.proyectointegrador.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import edu.cursokolektor.proyectointegrador.bo.Hamburguesa;
-import edu.cursokolektor.proyectointegrador.bo.Ingrediente;
 import edu.cursokolektor.proyectointegrador.repository.HamburguesaRepository;
-import edu.cursokolektor.proyectointegrador.repository.IngredienteRepository;
 
 @Service
 public class HamburguesaServiceImpl implements HamburguesaService{
 
 	@Autowired
 	private HamburguesaRepository hamburguesaRepository;
-	
-	@Autowired
-	private IngredienteRepository ingredienteRepository;
 	
 	@Override
 	public Long guardarNuevaHamburguesa(Hamburguesa hamburguesa) {

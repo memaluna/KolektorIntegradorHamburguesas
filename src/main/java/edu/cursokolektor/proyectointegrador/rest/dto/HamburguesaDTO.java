@@ -1,8 +1,6 @@
 package edu.cursokolektor.proyectointegrador.rest.dto;
 
 import java.util.List;
-import java.util.Set;
-
 import edu.cursokolektor.proyectointegrador.bo.Hamburguesa;
 import edu.cursokolektor.proyectointegrador.bo.Ingrediente;
 

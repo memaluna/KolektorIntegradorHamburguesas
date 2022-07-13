@@ -1,5 +1,6 @@
 package edu.cursokolektor.proyectointegrador.bo;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,18 +25,28 @@ public class Pedido {
 	
 	private Boolean pagado;
 	private Boolean entregado;
+	private LocalDate fechaAlta;
+	private LocalDate fechaEntrega;
+	private Long totalPrecio;
+	private String direccionEntrega;
+	
 	
 	public Pedido() {
 		super();
 	}
 
-	public Pedido(Long id, List<Hamburguesa> hamburguesas, Cliente cliente, Boolean pagado, Boolean entregado) {
+	public Pedido(Long id, List<Hamburguesa> hamburguesas, Cliente cliente, Boolean pagado, Boolean entregado,
+			LocalDate fechaAlta, LocalDate fechaEntrega, Long totalPrecio, String direccionEntrega) {
 		super();
 		this.id = id;
 		this.hamburguesas = hamburguesas;
 		this.cliente = cliente;
 		this.pagado = pagado;
 		this.entregado = entregado;
+		this.fechaAlta = fechaAlta;
+		this.fechaEntrega = fechaEntrega;
+		this.totalPrecio = totalPrecio;
+		this.direccionEntrega = direccionEntrega;
 	}
 
 	public Long getId() {
@@ -77,6 +88,38 @@ public class Pedido {
 	public void setEntregado(Boolean entregado) {
 		this.entregado = entregado;
 	}
+	
+	public LocalDate getFechaAlta() {
+		return fechaAlta;
+	}
+
+	public void setFechaAlta(LocalDate fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+	
+	public LocalDate getFechaEntrega() {
+		return fechaEntrega;
+	}
+
+	public void setFechaEntrega(LocalDate fechaEntrega) {
+		this.fechaEntrega = fechaEntrega;
+	}
+	
+	public Long getTotalPrecio() {
+		return totalPrecio;
+	}
+
+	public void setTotalPrecio(Long totalPrecio) {
+		this.totalPrecio = totalPrecio;
+	}
+
+	public String getDireccionEntrega() {
+		return direccionEntrega;
+	}
+
+	public void setDireccionEntrega(String direccionEntrega) {
+		this.direccionEntrega = direccionEntrega;
+	}
 
 	@Override
 	public int hashCode() {
@@ -100,7 +143,7 @@ public class Pedido {
 	@Override
 	public String toString() {
 		return "Pedido [id=" + id + ", hamburguesas=" + hamburguesas + ", cliente=" + cliente + ", pagado=" + pagado
-				+ ", entregado=" + entregado + "]";
+				+ ", entregado=" + entregado + ", fechaAlta=" + fechaAlta + ", fechaEntrega=" + fechaEntrega
+				+ ", totalPrecio=" + totalPrecio + ", direccionEntrega=" + direccionEntrega + "]";
 	}
-	
 }

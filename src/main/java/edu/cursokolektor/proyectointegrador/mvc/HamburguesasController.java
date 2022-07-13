@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import edu.cursokolektor.proyectointegrador.bo.*;
+import edu.cursokolektor.proyectointegrador.mvc.form.ClienteForm;
 import edu.cursokolektor.proyectointegrador.mvc.form.HamburguesaForm;
 import edu.cursokolektor.proyectointegrador.mvc.form.IngredienteForm;
+import edu.cursokolektor.proyectointegrador.mvc.form.PedidoForm;
+import edu.cursokolektor.proyectointegrador.service.ClienteService;
 import edu.cursokolektor.proyectointegrador.service.HamburguesaService;
 import edu.cursokolektor.proyectointegrador.service.IngredienteService;
 
@@ -30,6 +33,9 @@ public class HamburguesasController {
 	
 	@Autowired
 	private IngredienteService ingredienteService;
+	
+	@Autowired
+	private ClienteService clienteService;
 	
 	//ingredientes--------------------------------->
 	
@@ -201,5 +207,107 @@ public class HamburguesasController {
 	
 	//Cliente ---------------------------------------------------->
 	
+	@GetMapping("/cliente/nuevo")
+	public String nuevoCliente(Model model) {
+		model.addAttribute("clienteForm", new ClienteForm());
+		System.out.println(model);
+		return "/hamburguesas/clienteform";
+	}
 	
+	@PostMapping("/cliente/guardar")
+	public String guardarCliente(@Valid @ModelAttribute(name = "clienteForm") ClienteForm clienteForm, BindingResult bindingResult, Model model) {
+
+		
+		log.info("Ejecutando el guardar: " + bindingResult.hasErrors());
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("clienteForm", clienteForm);
+			return "/hamburguesas/clienteform";
+		}
+		
+		Cliente cliente = null;
+		Long idCliente = clienteForm.getId();
+		System.out.println("estado id " + idCliente);
+		if(idCliente == null) {
+			cliente = new Cliente();
+		} else {
+			cliente = clienteService.buscarClientePorId(idCliente);
+		}
+		
+		cliente.setNombre(clienteForm.getNombre());
+		cliente.setTelefono(clienteForm.getTelefono());
+		cliente.setDireccion(clienteForm.getDireccion());
+		cliente.setEmail(clienteForm.getEmail());
+		cliente.setFechaAlta(clienteForm.getFechaAlta());
+		
+		
+		if(idCliente == null) {
+			try {
+				clienteService.guardarNuevoCliente(cliente);
+			} catch (Exception e) {
+				log.error("Error al gurdar un nuevo ingrediente", e.getMessage());
+				return "redirect:/error";
+			}
+
+		} else {
+			clienteService.actualizarCliente(cliente);
+		}
+
+		return "redirect:/hamburguesas/clientes";
+	}
+	
+	@GetMapping("/clientes")
+	public String listarClientes(Model model) {
+		List<Cliente> clientes= clienteService.recuperarClientes();
+		model.addAttribute("clientes", clientes);
+		return "/hamburguesas/listarclientes";
+	}
+	
+	@GetMapping("cliente/{id}/borrar")
+	public String borrarCliente(Model model, @PathVariable Long id) {
+		clienteService.borrarClientePorId(id);
+		return "redirect:/hamburguesas/clientes";
+	}
+	
+	@GetMapping("/cliente/{id}/editar")
+	public String editarCliente(Model model, @PathVariable Long id) {
+		Cliente cliente = clienteService.buscarClientePorId(id);
+		System.out.println(cliente);
+		ClienteForm clienteForm = new ClienteForm();
+		clienteForm.setId(cliente.getId());
+		clienteForm.setNombre(cliente.getNombre());
+		clienteForm.setTelefono(cliente.getTelefono());
+		clienteForm.setDireccion(cliente.getDireccion());
+		clienteForm.setEmail(cliente.getEmail());
+		clienteForm.setFechaAlta(cliente.getFechaAlta());
+				
+		model.addAttribute("clienteForm", clienteForm);
+		return "/hamburguesas/clienteform";
+	}
+	
+	@GetMapping("/cliente/{id}")
+	public String verCliente(Model model, @PathVariable Long id) {
+		Cliente cliente = clienteService.buscarClientePorId(id);
+		model.addAttribute("cliente", cliente);
+		return "/hamburguesas/vercliente";
+	}
+	
+	// Pedido ------------------------------------------------------------------------>
+	
+	private void cargarHamburguesas(Model model) {
+		List<Hamburguesa> hamburguesas = hamburguesaService.recuperarHamburguesas();
+		model.addAttribute("hamburguesas", hamburguesas);
+	}
+	private void cargarClientes(Model model) {
+		List<Cliente> clientes = clienteService.recuperarClientes();
+		model.addAttribute("clientes", clientes);
+	}
+	
+	@GetMapping("/pedido/nuevo")
+	public String nuevoPedido(Model model) {
+		this.cargarClientes(model);
+		this.cargarHamburguesas(model);
+		model.addAttribute("pedidoForm", new PedidoForm());
+		System.out.println(model);
+		return "/hamburguesas/pedidoform";
+	}
 }

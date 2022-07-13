@@ -1,5 +1,6 @@
 package edu.cursokolektor.proyectointegrador.mvc.form;
 
+import java.time.LocalDate;
 import javax.validation.constraints.NotBlank;
 
 public class ClienteForm {
@@ -11,7 +12,12 @@ public class ClienteForm {
 	private String telefono;
 	private String direccion;
 	private String email;
+	private LocalDate fechaAlta;
 	
+	public ClienteForm() {
+		super();
+		this.fechaAlta = LocalDate.now();
+	}
 	public Long getId() {
 		return id;
 	}
@@ -42,6 +48,17 @@ public class ClienteForm {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public LocalDate getFechaAlta() {
+		return fechaAlta;
+	}
+	public void setFechaAlta(LocalDate fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
 	
+	@Override
+	public String toString() {
+		return "ClienteForm [id=" + id + ", nombre=" + nombre + ", telefono=" + telefono + ", direccion=" + direccion
+				+ ", email=" + email + ", fechaAlta=" + fechaAlta + "]";
+	}
 	
 }

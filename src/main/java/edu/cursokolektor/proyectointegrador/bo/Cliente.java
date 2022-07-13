@@ -1,7 +1,7 @@
 package edu.cursokolektor.proyectointegrador.bo;
 
+import java.time.LocalDate;
 import java.util.Objects;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,6 +17,7 @@ public class Cliente {
 	private String telefono;
 	private String direccion;
 	private String email;
+	private LocalDate fechaAlta;
 	
 	public Cliente() {
 		super();
@@ -70,6 +71,15 @@ public class Cliente {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public LocalDate getFechaAlta() {
+		return fechaAlta;
+	}
+
+	public void setFechaAlta(LocalDate fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+
 
 	@Override
 	public int hashCode() {
@@ -93,7 +103,9 @@ public class Cliente {
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", nombre=" + nombre + ", telefono=" + telefono + ", direccion=" + direccion
-				+ ", email=" + email + "]";
+				+ ", email=" + email + ", fechaAlta=" + fechaAlta + "]";
 	}
+
+	
 
 }

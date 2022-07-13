@@ -18,6 +18,7 @@
 	</c:forEach>    
   </div>
 </div>
-
+<br>
+<button onclick="history.back()" class="btn btn-primary">Volver</button>
 
 <jsp:include page="/WEB-INF/vistas/template_inferior.jsp"></jsp:include>

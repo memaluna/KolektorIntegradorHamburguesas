@@ -1,5 +1,6 @@
 package edu.cursokolektor.proyectointegrador.mvc.form;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
@@ -18,6 +19,10 @@ public class PedidoForm {
 	private Boolean pagado;
 	@NotBlank
 	private Boolean entregado;
+	private LocalDate fechaAlta;
+	private LocalDate fechaEntrega;
+	private Long totalPrecio;
+	private String direccionEntrega;
 	
 	public Long getId() {
 		return id;
@@ -49,5 +54,37 @@ public class PedidoForm {
 	public void setEntregado(Boolean entregado) {
 		this.entregado = entregado;
 	}
+	public LocalDate getFechaAlta() {
+		return fechaAlta;
+	}
+	public void setFechaAlta(LocalDate fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+	public LocalDate getFechaEntrega() {
+		return fechaEntrega;
+	}
+	public void setFechaEntrega(LocalDate fechaEntrega) {
+		this.fechaEntrega = fechaEntrega;
+	}
+	public Long getTotalPrecio() {
+		return totalPrecio;
+	}
+	public void setTotalPrecio(Long totalPrecio) {
+		this.totalPrecio = totalPrecio;
+	}
+	public String getDireccionEntrega() {
+		return direccionEntrega;
+	}
+	public void setDireccionEntrega(String direccionEntrega) {
+		this.direccionEntrega = direccionEntrega;
+	}
+	@Override
+	public String toString() {
+		return "PedidoForm [id=" + id + ", hamburguesas=" + hamburguesas + ", cliente=" + cliente + ", pagado=" + pagado
+				+ ", entregado=" + entregado + ", fechaAlta=" + fechaAlta + ", fechaEntrega=" + fechaEntrega
+				+ ", totalPrecio=" + totalPrecio + ", direccionEntrega=" + direccionEntrega + "]";
+	}
+	
+	
 	
 }

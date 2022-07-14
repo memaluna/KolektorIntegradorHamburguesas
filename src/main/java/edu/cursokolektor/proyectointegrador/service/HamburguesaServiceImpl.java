@@ -32,14 +32,12 @@ public class HamburguesaServiceImpl implements HamburguesaService{
 
 	@Override
 	public List<Hamburguesa> buscarHamburguesas(String nombre) {
-		// TODO Auto-generated method stub
-		return null;
+		return hamburguesaRepository.buscarHamburguesa(nombre);
 	}
 
 	@Override
 	public List<Hamburguesa> buscarHamburguesas(String nombre, Double precio) {
-		// TODO Auto-generated method stub
-		return null;
+		return hamburguesaRepository.buscarHamburguesa(nombre, precio);
 	}
 
 	@Override

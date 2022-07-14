@@ -17,7 +17,7 @@ public interface HamburguesaService {
 
 	void borrarHamburguesaPorId(Long id);
 	
-	void actualizarHamburguesa(Hamburguesa Hamburguesa);
+	void actualizarHamburguesa(Hamburguesa Hamburguesa);	
 	
 	//List<Ingrediente> recuperarIngredientes();
 	

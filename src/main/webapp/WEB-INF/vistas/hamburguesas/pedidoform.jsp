@@ -6,13 +6,47 @@
 
 	<script type="text/javascript">
  		$(document).ready(function() {
-			$('#select-hamburguesas').select2();
+			//$('#select-hamburguesas').select2();			
 			$('#select-clientes').select2({
 				  maximumSelectionLength: 1
 			});
 			$('#form-pedido').validate();
 			$("#entregadoCB").click(function() { return false; });
+			 //logica para agregar y quitar hamburguesas a lista de compras.
+			$("#btn-agregar").click(function() {				
+				var o = new Option($('#select-hamburguesas option').filter(':selected').text(), $('#select-hamburguesas option').filter(':selected').val());
+				$(o).html($('#select-hamburguesas option').filter(':selected').text());
+				$("#select-lista").append(o);			
+			});
+			$("#btn-quitar").click(function() {				
+				$('option:selected', "#select-lista").remove();
+			});
+			//logica para sumar precio a importe total
+			$("#select-lista").bind("DOMSubtreeModified", function() {
+	 			let precio = 0;
+				$("#select-lista > option").each(function() {
+					
+					//console.log(this.value)
+					$.ajax({
+				        url: "http://localhost:8080/api/hamburguesas/hamburguesa/" + this.value
+				    }).then(function(data) {
+				       //console.log(data.precio.precio)
+				       precio = precio + data.precio;
+				       $("#importe").val(precio);
+				    });
+				
+			    });
+				if($("#select-lista").children().length <= 0){
+					$("#importe").val(0);
+				}
+			});
+			
 		}); 
+ 		
+ 		function sumarTotal(){
+ 			
+ 		}
+
 	</script>
 
 	<h1>Cargar nuevo pedido</h1>
@@ -23,20 +57,32 @@
 		</div>
 		<div class="form-group">
 			<label>Cliente</label>
-			<form:select path="hamburguesas" items="${clientes}" itemLabel="nombre" itemValue="id" cssClass="form-control" id="select-clientes" />
+			<form:select path="hamburguesas" items="${clientes}" itemLabel="nombre" itemValue="id" data-completa="${clientes.get(0).direccion}" cssClass="form-control" id="select-clientes" />
 		</div>
 		<div class="form-group">
 			<label>Dirección de entrega</label>
 			<form:input path="fechaAlta" cssClass="form-control required" />
 			<form:errors path="fechaAlta" cssClass="error"/>
 		</div>
-		<div class="form-group">
-			<label>Hamburguesas</label>
-			<form:select path="hamburguesas" items="${hamburguesas}" itemLabel="nombre" itemValue="id" cssClass="form-control" id="select-hamburguesas" />
+		<div class="form-group d-flex justify-content-center d-flex align-items-center" >
+			<div class="col-sm-3">
+				<label>Hamburguesas</label>
+				<form:select style="min-width:90%;" size="10" path="hamburguesas" items="${hamburguesas}" itemLabel="nombre" itemValue="id" cssClass="form-control" id="select-hamburguesas" />
+			</div>
+			<div class="d-flex flex-column bd-highlight mb-3">
+				<button id="btn-agregar" class="m-3" type="button">Agregar Hamburguesa</button>
+				<button id="btn-quitar" class="m-3" type="button">Quitar Hamburguesa</button>
+			</div>
+
+			<div class="col-sm-3">
+				<label>Lista de compra</label>
+				<select style="min-width:90%;" class="form-control" size="10" cssClass="form-control" id="select-lista"/></select>
+			</div>
 		</div>
+			
 		<div class="form-group">
 			<label>Importe total</label>
-			<form:input readonly="true" path="fechaAlta" cssClass="form-control required" />
+			<form:input id="importe" readonly="true" path="fechaAlta" cssClass="form-control required" />
 			<form:errors path="fechaAlta" cssClass="error"/>
 		</div>	
 		<div class="form-group">

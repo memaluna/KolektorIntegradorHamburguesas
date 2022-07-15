@@ -2,6 +2,8 @@ package edu.cursokolektor.proyectointegrador.rest.dto;
 
 import java.time.LocalDate;
 
+import edu.cursokolektor.proyectointegrador.bo.Cliente;
+
 public class ClienteDTO {
 
 	private Long id;
@@ -11,14 +13,13 @@ public class ClienteDTO {
 	private String email;
 	private LocalDate fechaAlta;
 	
-	public ClienteDTO(Long id, String nombre, String telefono, String direccion, String email, LocalDate fechaAlta) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.telefono = telefono;
-		this.direccion = direccion;
-		this.email = email;
-		this.fechaAlta = fechaAlta;
+	public ClienteDTO(Cliente cliente) {
+		this.id = cliente.getId();
+		this.nombre = cliente.getNombre();
+		this.telefono = cliente.getTelefono();
+		this.direccion = cliente.getDireccion();
+		this.email = cliente.getEmail();
+		this.fechaAlta = cliente.getFechaAlta();
 	}
 
 	public ClienteDTO() {

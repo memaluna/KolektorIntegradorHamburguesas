@@ -1,9 +1,8 @@
 package edu.cursokolektor.proyectointegrador.bo;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -25,8 +24,8 @@ public class Pedido {
 	
 	private Boolean pagado;
 	private Boolean entregado;
-	private LocalDate fechaAlta;
-	private LocalDate fechaEntrega;
+	private LocalDateTime fechaAlta;
+	private LocalDateTime fechaEntrega;
 	private Long totalPrecio;
 	private String direccionEntrega;
 	
@@ -36,7 +35,7 @@ public class Pedido {
 	}
 
 	public Pedido(Long id, List<Hamburguesa> hamburguesas, Cliente cliente, Boolean pagado, Boolean entregado,
-			LocalDate fechaAlta, LocalDate fechaEntrega, Long totalPrecio, String direccionEntrega) {
+			LocalDateTime fechaAlta, LocalDateTime fechaEntrega, Long totalPrecio, String direccionEntrega) {
 		super();
 		this.id = id;
 		this.hamburguesas = hamburguesas;
@@ -89,19 +88,19 @@ public class Pedido {
 		this.entregado = entregado;
 	}
 	
-	public LocalDate getFechaAlta() {
+	public LocalDateTime getFechaAlta() {
 		return fechaAlta;
 	}
 
-	public void setFechaAlta(LocalDate fechaAlta) {
+	public void setFechaAlta(LocalDateTime fechaAlta) {
 		this.fechaAlta = fechaAlta;
 	}
 	
-	public LocalDate getFechaEntrega() {
+	public LocalDateTime getFechaEntrega() {
 		return fechaEntrega;
 	}
 
-	public void setFechaEntrega(LocalDate fechaEntrega) {
+	public void setFechaEntrega(LocalDateTime fechaEntrega) {
 		this.fechaEntrega = fechaEntrega;
 	}
 	

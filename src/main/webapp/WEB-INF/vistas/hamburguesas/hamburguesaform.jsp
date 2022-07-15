@@ -6,7 +6,9 @@
 
 	<script type="text/javascript">
 	$(document).ready(function() {
-		$('#select-ingredientes').select2();
+		$('#select-ingredientes').select2({
+			theme: 'bootstrap4',
+		});
 		//$('#form-producto').validate();
 	});
 	</script>

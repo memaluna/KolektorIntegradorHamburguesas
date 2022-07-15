@@ -26,7 +26,7 @@ public class HamburguesaRestController {
 	private HamburguesaService hamburguesaService;
 	
 	@GetMapping("/hamburguesas")
-	public List<HamburguesaDTO> recuperarTodosLasCategorias() {
+	public List<HamburguesaDTO> recuperarTodosLasHamburguesas() {
 		List<Hamburguesa> hamburguesas = hamburguesaService.recuperarHamburguesas();
 		List<HamburguesaDTO> hamburguesasDTO = new ArrayList<HamburguesaDTO>();
 		for (Hamburguesa hamburguesa : hamburguesas) {

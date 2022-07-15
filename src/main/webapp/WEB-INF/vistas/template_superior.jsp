@@ -15,41 +15,17 @@
 	<script type="text/javascript" src="<c:url value="/js/messages_es_AR.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/js/select2.min.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/js/jquery.selectlistactions.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/js/moment-with-locales.min.js"/>"></script>
 	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
+		
 	<link href="<c:url value="/css/bootstrap.css"/>" rel="stylesheet" >
 	<link href="<c:url value="/css/select2.min.css"/>" rel="stylesheet" >
 	<link href="<c:url value="/css/general.css"/>" rel="stylesheet" >
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('#select-autocomplete-productos').select2({ 
-				width: '300px',
-				placeholder: 'Buscar hamburguesa',
-				minimumInputLength: 2,
-				ajax: {
-				    url: '/api/hamburguesas',
-				    data: function (params) {
-				        var query = {
-				          nombre: params.term
-				        };
-				        return query;
-				    },
-				    processResults: function (data) {
-				        var nuevosDatos = [];
-				    	
-				        for(var hamburguesa of data) {
-				        	nuevosDatos.push({ id: hamburguesa.id, text: hamburguesa.nombre + ' ' + hamburguesa.precio });
-				        }
-				        
-				    	return {
-				          results: nuevosDatos
-				        };
-				    },
-				    dataType: 'json'
-				}
-			}).on('select2:select', function(event) {
-				window.location = '/hamburguesas/hamburguesa/' + event.params.data.id;
-			});
+
 		});
 	</script>
 </head>
@@ -76,10 +52,10 @@
 	        <li class="nav-item">
 	          <a class="nav-link" href="<c:url value="/hamburguesas/ingrediente/nuevo"/>">Nuevo ingrediente</a>
 	        </li>
+	       	<li class="nav-item">
+	          <a class="nav-link" href="<c:url value="/hamburguesas/pedido/nuevo"/>">Nuevo pedido</a>
+	        </li>
 	      </ul>
-	      <form class="form-inline mt-2 mt-md-0">
-	      	<select id="select-autocomplete-productos"></select>
-	      </form>
 	    </div>
 	  </nav>
 	</header>

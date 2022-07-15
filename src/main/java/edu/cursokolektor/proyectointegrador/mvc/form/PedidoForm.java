@@ -1,10 +1,8 @@
 package edu.cursokolektor.proyectointegrador.mvc.form;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
-
-import javax.validation.constraints.NotBlank;
-
+import org.springframework.format.annotation.DateTimeFormat;
 import edu.cursokolektor.proyectointegrador.bo.Cliente;
 import edu.cursokolektor.proyectointegrador.bo.Hamburguesa;
 
@@ -15,12 +13,11 @@ public class PedidoForm {
 	private List<Hamburguesa> hamburguesas;
 	private Cliente cliente;
 	
-	@NotBlank
 	private Boolean pagado;
-	@NotBlank
 	private Boolean entregado;
-	private LocalDate fechaAlta;
-	private LocalDate fechaEntrega;
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+	private LocalDateTime fechaAlta;
+	private LocalDateTime fechaEntrega;
 	private Long totalPrecio;
 	private String direccionEntrega;
 	
@@ -54,16 +51,16 @@ public class PedidoForm {
 	public void setEntregado(Boolean entregado) {
 		this.entregado = entregado;
 	}
-	public LocalDate getFechaAlta() {
+	public LocalDateTime getFechaAlta() {
 		return fechaAlta;
 	}
-	public void setFechaAlta(LocalDate fechaAlta) {
+	public void setFechaAlta(LocalDateTime fechaAlta) {
 		this.fechaAlta = fechaAlta;
 	}
-	public LocalDate getFechaEntrega() {
+	public LocalDateTime getFechaEntrega() {
 		return fechaEntrega;
 	}
-	public void setFechaEntrega(LocalDate fechaEntrega) {
+	public void setFechaEntrega(LocalDateTime fechaEntrega) {
 		this.fechaEntrega = fechaEntrega;
 	}
 	public Long getTotalPrecio() {

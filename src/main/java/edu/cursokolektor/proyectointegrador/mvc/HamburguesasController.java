@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +22,7 @@ import edu.cursokolektor.proyectointegrador.mvc.form.PedidoForm;
 import edu.cursokolektor.proyectointegrador.service.ClienteService;
 import edu.cursokolektor.proyectointegrador.service.HamburguesaService;
 import edu.cursokolektor.proyectointegrador.service.IngredienteService;
+import edu.cursokolektor.proyectointegrador.service.PedidoService;
 
 @Controller
 @RequestMapping("/hamburguesas")
@@ -36,6 +38,9 @@ public class HamburguesasController {
 	
 	@Autowired
 	private ClienteService clienteService;
+	
+	@Autowired
+	private PedidoService pedidoService;
 	
 	//ingredientes--------------------------------->
 	
@@ -309,5 +314,51 @@ public class HamburguesasController {
 		model.addAttribute("pedidoForm", new PedidoForm());
 		System.out.println(model);
 		return "/hamburguesas/pedidoform";
+	}
+	
+	@PostMapping("/pedido/guardar")
+	public String guardarPedido(@Valid @ModelAttribute(name = "pedidoForm") PedidoForm pedidoForm, BindingResult bindingResult, Model model) {
+		
+		System.out.println(pedidoForm);
+		
+		log.info("Ejecutando el guardar: " + bindingResult.hasErrors());
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("pedidoForm", pedidoForm);
+			return "/hamburguesas/pedidoform";
+		}
+		
+		Pedido pedido = null;
+		Long idPedido = pedidoForm.getId();
+		System.out.println("estado id " + idPedido);
+		if(idPedido == null) {
+			pedido = new Pedido();
+		} else {
+			pedido = pedidoService.buscarPedidoPorId(idPedido);
+		}
+		
+		pedido.setHamburguesas(pedidoForm.getHamburguesas());
+		pedido.setCliente(pedidoForm.getCliente());
+		pedido.setPagado(pedidoForm.getPagado());
+		pedido.setEntregado(pedidoForm.getEntregado());
+		pedido.setFechaAlta(pedidoForm.getFechaAlta());
+		pedido.setFechaEntrega(pedidoForm.getFechaEntrega());
+		pedido.setTotalPrecio(pedidoForm.getTotalPrecio());
+		pedido.setDireccionEntrega(pedidoForm.getDireccionEntrega());
+		
+		
+		
+		if(idPedido == null) {
+			try {
+				pedidoService.guardarNuevoPedido(pedido);
+			} catch (Exception e) {
+				log.error("Error al gurdar un nuevo pedido", e.getMessage());
+				return "redirect:/error";
+			}
+
+		} else {
+			pedidoService.actualizarPedido(pedido);
+		}
+
+		return "redirect:/hamburguesas/clientes";
 	}
 }
